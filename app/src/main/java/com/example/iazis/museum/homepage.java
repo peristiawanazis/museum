@@ -2,6 +2,7 @@ package com.example.iazis.museum;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -38,6 +39,16 @@ public class homepage extends Activity {
         tittle.setTextSize(13);
         Button enterbutton = (Button) findViewById(R.id.button);
         enterbutton.setText("Enter");
+        enterbutton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+
+                Intent i = new Intent(getApplicationContext(), map.class);
+                startActivity(i);
+            }
+        });
 
 
     }
