@@ -14,7 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-
+import com.example.iazis.museum.map;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -51,8 +51,8 @@ public class mainpage extends AppCompatActivity implements NavigationView.OnNavi
         navigationView.setNavigationItemSelectedListener(this);
 
 
-       // FragmentManager fm = getFragmentManager();
-        //fm.beginTransaction().replace(R.id.content_frame, new MainFragment()).commit();
+       FragmentManager fm = getFragmentManager();
+       fm.beginTransaction().replace(R.id.map, new map()).commit();
 
     }
 
