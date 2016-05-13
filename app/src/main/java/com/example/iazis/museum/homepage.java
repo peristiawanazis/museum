@@ -45,7 +45,7 @@ public class homepage extends Activity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
 
-                Intent i = new Intent(getApplicationContext(), map.class);
+                Intent i = new Intent(getApplicationContext(), mainpage.class);
                 startActivity(i);
             }
         });

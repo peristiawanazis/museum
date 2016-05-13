@@ -4,5 +4,6 @@
     <color name="background_white">#ffffff</color>
     <color name="colorAccent">#FF4081</color>
     <color name="textdua">#8696a8</color>
-    #8696a8
+    <color name="warnaheader">#8696a8</color>
+
 </resources>
