@@ -2,22 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
-        <item android:id="@+id/nav_camara" android:icon="@android:drawable/ic_menu_camera"
-            android:title="Import" />
-        <item android:id="@+id/nav_gallery" android:icon="@android:drawable/ic_menu_gallery"
-            android:title="Maps" />
-        <item android:id="@+id/nav_slideshow" android:icon="@android:drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item android:id="@+id/nav_manage" android:icon="@android:drawable/ic_menu_manage"
-            android:title="Tools" />
+        <item android:id="@+id/nav_camara" android:icon="@android:drawable/ic_search_category_default"
+            android:title="Search By" />
+        <item android:id="@+id/nav_gallery" android:icon="@android:drawable/ic_dialog_info"
+            android:title="Information" />
     </group>
 
     <item android:title="Communicate">
         <menu>
-            <item android:id="@+id/nav_share" android:icon="@android:drawable/ic_menu_share"
-                android:title="Share" />
-            <item android:id="@+id/nav_send" android:icon="@android:drawable/ic_menu_send"
-                android:title="Send" />
+            <item android:id="@+id/nav_share" android:icon="@android:drawable/ic_menu_help"
+                android:title="Help" />
+            <item android:id="@+id/nav_send" android:icon="@android:drawable/ic_input_add"
+                android:title="Profile" />
         </menu>
     </item>
 

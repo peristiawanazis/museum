@@ -1,8 +1,11 @@
 package com.example.iazis.museum;
 
+import android.Manifest;
 import android.app.Fragment;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +19,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 
 public class map extends Fragment implements OnMapReadyCallback {
-
+    GoogleMap googleMap;
 
     @Nullable
     @Override
@@ -36,9 +39,8 @@ public class map extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
 
         LatLng marker = new LatLng(-33.867, 151.206);
-
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker, 13));
-
-        googleMap.addMarker(new MarkerOptions().title("Hello Google Maps!").position(marker));
+        googleMap.setMyLocationEnabled(true);
+        googleMap.addMarker(new MarkerOptions().title("Hello asdasdadGoogle Maps!").position(marker));
     }
 }
