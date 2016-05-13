@@ -17,6 +17,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 
 public class map extends Fragment implements OnMapReadyCallback {
     GoogleMap googleMap;
@@ -38,9 +40,9 @@ public class map extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-        LatLng marker = new LatLng(-33.867, 151.206);
+        LatLng marker = new LatLng(-6.12144, 106.774);
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker, 13));
         googleMap.setMyLocationEnabled(true);
-        googleMap.addMarker(new MarkerOptions().title("Hello asdasdadGoogle Maps!").position(marker));
+        googleMap.addMarker(new MarkerOptions().title("Museum Fatahillah").position(marker));
     }
 }

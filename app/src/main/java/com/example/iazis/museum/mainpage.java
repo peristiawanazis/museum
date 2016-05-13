@@ -101,7 +101,7 @@ public class mainpage extends AppCompatActivity implements NavigationView.OnNavi
         int id = item.getItemId();
 
         if (id == R.id.nav_camara) {
-         //
+            Toast.makeText(this, "Search By Categories", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_gallery) {
             Toast.makeText(this, "test", Toast.LENGTH_SHORT).show();
         }  else if (id == R.id.nav_share) {
