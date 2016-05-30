@@ -3,20 +3,22 @@
 
     <item android:title="Search By">
         <menu>
-            <item android:id="@+id/nav_share" android:icon="@android:drawable/ic_menu_edit"
+            <item android:id="@+id/nav_drawing" android:icon="@android:drawable/ic_menu_edit"
                 android:title="Drawing" />
-            <item android:id="@+id/nav_send" android:icon="@android:drawable/ic_menu_compass"
+            <item android:id="@+id/nav_near" android:icon="@android:drawable/ic_menu_compass"
                 android:title="Near Me" />
         </menu>
     </item>
 
     <group android:checkableBehavior="single">
-        <item android:id="@+id/nav_camara" android:icon="@android:drawable/ic_menu_info_details"
+        <item android:id="@+id/nav_info" android:icon="@android:drawable/ic_menu_info_details"
             android:title="Information" />
-        <item android:id="@+id/nav_gallery" android:icon="@android:drawable/ic_menu_help"
+        <item android:id="@+id/nav_help" android:icon="@android:drawable/ic_menu_help"
             android:title="Help" />
-        <item android:id="@+id/nav_profile" android:icon="@android:drawable/ic_menu_help"
+        <item android:id="@+id/nav_profile" android:icon="@android:drawable/ic_menu_manage"
             android:title="Profile" />
+        <item android:id="@+id/nav_map" android:icon="@android:drawable/ic_menu_mapmode"
+            android:title="Map" />
     </group>
 
 

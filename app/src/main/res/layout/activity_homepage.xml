@@ -31,14 +31,16 @@
         android:layout_height="wrap_content"
         android:textColor="@color/textdua"
         android:layout_below="@+id/button"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:gravity="center"/>
     <TextView
         android:id="@+id/descdua"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/textdua"
         android:layout_below="@+id/desc"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:gravity="center"/>
 
     <TextView
         android:id="@+id/tittle"
@@ -46,6 +48,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/colorPrimary"
         android:layout_below="@+id/descdua"
+        android:gravity="center"
          />
 
 </RelativeLayout>

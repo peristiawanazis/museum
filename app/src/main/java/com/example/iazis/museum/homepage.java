@@ -32,7 +32,7 @@ public class homepage extends Activity {
         descdua.setTypeface(Typeface.MONOSPACE, 0);
         tittle.setTypeface(Typeface.DEFAULT_BOLD);
         desc.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-        descdua.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        descdua.setTextAlignment(View.TEXT_ALIGNMENT_GRAVITY);
         tittle.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         desc.setTextSize(14);
         descdua.setTextSize(12);
