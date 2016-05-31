@@ -12,12 +12,20 @@
         android:paddingBottom="2dip"
         android:paddingTop="6dip"
         android:textStyle="bold"
-        android:textColor="@color/textdua"/>
+        android:textSize="10pt"
+        android:textColor="@android:color/holo_blue_dark"/>
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="2dip"
         android:id="@+id/regional_museum"
+        android:textStyle="bold"
+        android:textColor="@android:color/holo_blue_light"/>
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="2dip"
+        android:id="@+id/desc_museum"
         android:textColor="@color/textdua"/>
 
 </LinearLayout>

@@ -41,13 +41,15 @@ public class infoadapter extends ArrayAdapter<museum> {
             holder = new ViewHolder();
             v = vi.inflate(Resource, null);
             holder.tvName = (TextView) v.findViewById(R.id.nama_museum);
-
+            holder.regional = (TextView) v.findViewById(R.id.regional_museum);
+            holder.desc = (TextView) v.findViewById(R.id.desc_museum);
            v.setTag(holder);
         } else {
             holder = (ViewHolder) v.getTag();
         }
         holder.tvName.setText(actorList.get(position).getmuseum_name());
-
+        holder.desc.setText(actorList.get(position).getmuseum_desc());
+        holder.regional.setText(actorList.get(position).getregional_name());
         return v;
 
     }
@@ -55,6 +57,9 @@ public class infoadapter extends ArrayAdapter<museum> {
     static class ViewHolder {
 
         public TextView tvName;
+        public TextView desc;
+        public TextView regional;
+
 
     }
 

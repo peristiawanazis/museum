@@ -62,35 +62,6 @@ public class map extends Fragment implements OnMapReadyCallback, GoogleMap.OnMap
 
 
     }
-
-
-    @Override
-    public void onMapClick(LatLng point) {
-        CircleOptions circleOptions = new CircleOptions()
-                .center(point)   //set center
-                .radius(500)   //set radius in meters
-                .fillColor(Color.TRANSPARENT)  //default
-                .strokeColor(Color.BLUE)
-                .strokeWidth(5);
-
-        myCircle = googleMap.addCircle(circleOptions);
-    }
-
-    @Override
-    public void onMapLongClick(LatLng point) {
-        CircleOptions circleOptions = new CircleOptions()
-                .center(point)   //set center
-                .radius(500)   //set radius in meters
-                .fillColor(0x40ff0000)  //semi-transparent
-                .strokeColor(Color.BLUE)
-                .strokeWidth(5);
-
-        myCircle = googleMap.addCircle(circleOptions);
-
-    }
-
-
-
 }
 
 

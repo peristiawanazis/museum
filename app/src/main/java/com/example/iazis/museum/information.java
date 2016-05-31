@@ -35,6 +35,7 @@ public class information extends android.app.Fragment {
     ListView lv;
     ArrayList<museum> actorsList;
 
+
     infoadapter adapter;
 
     @Override
@@ -48,12 +49,7 @@ public class information extends android.app.Fragment {
         actorsList = new ArrayList<museum>();
         new JSONAsynTask().execute("http://arifmuseum.esy.es/peta.php");
         adapter = new infoadapter(getActivity(), R.layout.isi_info_listview, actorsList);
-
         lv.setAdapter(adapter);
-
-
-
-
         return  vw;
     }
 
@@ -61,7 +57,6 @@ public class information extends android.app.Fragment {
     class JSONAsynTask extends AsyncTask<String, Void, Boolean> {
         String result;
         ProgressDialog dialog;
-
 
         @Override
         protected void onPreExecute() {
@@ -75,18 +70,12 @@ public class information extends android.app.Fragment {
 
         @Override
         protected Boolean doInBackground(String... urls) {
-
-
             try {
-
-
                 HttpGet httppost = new HttpGet(urls[0]);
                 HttpClient httpclient = new DefaultHttpClient();
                 HttpResponse response = httpclient.execute(httppost);
 
-
                 int status = response.getStatusLine().getStatusCode();
-
                 if (status == 200) {
                     HttpEntity entity = response.getEntity();
                   //  String data = EntityUtils.toString(entity);
@@ -94,26 +83,18 @@ public class information extends android.app.Fragment {
                     String a;
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"iso-8859-1"),8);
                     a = bufferedReader.readLine(); inputStream.close();
-
-
                    // JSONObject jsono = new JSONObject(data);
                     JSONArray jarray = new JSONArray(a);
-
                     for (int i = 0; i < jarray.length(); i++) {
                         JSONObject object = jarray.getJSONObject(i);
-
                         museum museum = new museum();
-
                         museum.setmuseum_name(object.getString("museum_name"));
-                        museum.setregional_id(object.getString("museum_name"));
-
-
+                        museum.setregional_name(object.getString("regional_name"));
+                        museum.setmuseum_desc(object.getString("museum_desc"));
                         actorsList.add(museum);
                     }
                     return true;
                 }
-
-
 
             } catch (ParseException e1) {
                 e1.printStackTrace();

@@ -11,6 +11,7 @@ public class museum {
     private String regional_id;
     private String museum_foto;
     private String museum_temp;
+    private String regional_name;
 
 
     public museum() {
@@ -18,7 +19,7 @@ public class museum {
     }
 
     public museum(String museum_id, String museum_name, String museum_price, String museum_desc,
-                  String museum_open, String museum_close, String regional_id, String museum_foto, String museum_temp ) {
+                  String museum_open, String museum_close, String regional_id, String museum_foto, String museum_temp, String regional_name ) {
         super();
         this.museum_id = museum_id;
         this.museum_name = museum_name;
@@ -29,6 +30,7 @@ public class museum {
         this.regional_id = regional_id;
         this.museum_foto = museum_foto;
         this.museum_temp = museum_temp;
+        this.regional_name = regional_name;
     }
 
 
@@ -70,12 +72,20 @@ public class museum {
         return museum_temp;
     }
 
+    public String getregional_name() {
+        return regional_name;
+    }
+
     public void setmuseum_name(String museum_name) {
         this.museum_name = museum_name;
     }
 
-    public void setregional_id(String regional_id) {
-        this.regional_id = regional_id;
+    public void setmuseum_desc(String museum_desc) {
+        this.museum_desc = museum_desc;
+    }
+
+    public void setregional_name(String regional_name) {
+        this.regional_name = regional_name;
     }
 
 

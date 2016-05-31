@@ -63,29 +63,6 @@ public class nearme extends Fragment implements OnMapReadyCallback {
         ArrayAdapter<String> allItemsAdapter = new ArrayAdapter<String>(getActivity().getBaseContext(), android.R.layout.simple_list_item_1,prueba);
 
         lstItems.setAdapter(allItemsAdapter);
-        lstItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                Snackbar snackbar = Snackbar.make(view, "Direct", Snackbar.LENGTH_LONG)
-                        .setAction("DONE", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-
-                            }
-                        });
-                snackbar.setActionTextColor(Color.RED);
-                View sbView = snackbar.getView();
-                TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
-                textView.setTextColor(Color.YELLOW);
-                snackbar.show();
-
-
-            }
-
-        });
-
 
     }
 
@@ -104,33 +81,8 @@ public class nearme extends Fragment implements OnMapReadyCallback {
         googleMap.addMarker(new MarkerOptions().title("Museum Agung Sasono Adi Guno").position(marker2));
         googleMap.addMarker(new MarkerOptions().title("testing").position(marker3));
 
-        CircleOptions options = new CircleOptions();
-        options.center(marker3);
-        //Radius in meters
-        options.radius(12000);
-        options.fillColor(getResources()
-                .getColor(R.color.wallet_holo_blue_light));
-        options.strokeColor(getResources()
-                .getColor(R.color.wallet_holo_blue_light));
-        options.strokeWidth(10);
-        googleMap.addCircle(options);
 
-
-
-        googleMap.addPolyline(new PolylineOptions().geodesic(true)
-                .add(new LatLng(-6.12144, 106.774))  // Sydney
-                .add(new LatLng(-6.27119, 106.895))  // Fiji
-                 // Hawaii
-
-        );
-
-
-    }
-
-
-
-
-
+  }
 }
 
 
