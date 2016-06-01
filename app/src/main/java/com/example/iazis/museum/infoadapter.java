@@ -16,8 +16,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
-
 public class infoadapter extends ArrayAdapter<museum> {
     ArrayList<museum> actorList;
     LayoutInflater vi;

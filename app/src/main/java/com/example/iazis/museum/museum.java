@@ -12,6 +12,8 @@ public class museum {
     private String museum_foto;
     private String museum_temp;
     private String regional_name;
+    private String latitude;
+    private String longitude;
 
 
     public museum() {
