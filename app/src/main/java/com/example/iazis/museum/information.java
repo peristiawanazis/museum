@@ -34,8 +34,6 @@ import android.widget.Toast;
 public class information extends android.app.Fragment {
     ListView lv;
     ArrayList<museum> actorsList;
-
-
     infoadapter adapter;
 
     @Override
@@ -106,6 +104,8 @@ public class information extends android.app.Fragment {
             return false;
 
         }
+
+
 
         protected void onPostExecute(Boolean result) {
 

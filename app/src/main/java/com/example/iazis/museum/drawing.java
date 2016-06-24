@@ -63,11 +63,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static com.google.android.gms.internal.zzir.runOnUiThread;
 
 
-public class map extends Fragment implements GoogleMap.OnInfoWindowClickListener {
+public class drawing extends Fragment implements GoogleMap.OnMapClickListener {
     private static final String LOG_TAG = "ExampleApp";
     private static final String SERVICE_URL = "http://arifmuseum.esy.es/peta.php";
     MapView mMapView;
@@ -75,6 +76,7 @@ public class map extends Fragment implements GoogleMap.OnInfoWindowClickListener
     private LatLng myLocation;
     Location location;
     private ArrayList<museum>   listTempatMakan;
+    Circle myCircle;
 
 
     public static final String	KEY_NAMA	= "museum_nama";
@@ -96,7 +98,6 @@ public class map extends Fragment implements GoogleMap.OnInfoWindowClickListener
 
         mMapView.onResume();// needed to get the map to display immediately
 
-
         return v;
     }
 
@@ -108,8 +109,6 @@ public class map extends Fragment implements GoogleMap.OnInfoWindowClickListener
         // mMapView.onResume();
         //setUpMapIfNeeded();
         setUpMap();
-
-
     }
 
     private void setUpMapIfNeeded() {
@@ -189,15 +188,14 @@ public class map extends Fragment implements GoogleMap.OnInfoWindowClickListener
             );
 
             moveToMyLocation();
+            googleMap.setOnMapClickListener(this);
 
-            googleMap.setOnInfoWindowClickListener(this);
         }
- }
+    }
 
     private void moveToMyLocation() {
         LocationManager locationManager = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
-        String provider = locationManager.getBestProvider(criteria, true);
 
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -210,9 +208,7 @@ public class map extends Fragment implements GoogleMap.OnInfoWindowClickListener
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-
         Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
-
         if(location!=null){
             Double s = location.getLatitude();
             Double ss = location.getLongitude();
@@ -221,57 +217,58 @@ public class map extends Fragment implements GoogleMap.OnInfoWindowClickListener
             googleMap.addMarker(new MarkerOptions()
                     .position(new LatLng(s, ss))
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
-
-                .snippet(new String("myloc")));
-                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(s, ss), 13));
-
+                            //.snippet("My Current Location")
+                   );
+            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(s, ss), 13));
 
         }
 
     }
-
     @Override
+    public void onMapClick(LatLng point) {
+        List<Marker> markers = new ArrayList<Marker>();
+        if (myCircle != null) {
+
+            myCircle.remove();
+        }
+        CircleOptions circleOptions = new CircleOptions()
+                .center(point)   //set center
+                .radius(4000)   //set radius in meters
+                .fillColor(0x40ff0000)
+                .strokeColor(Color.TRANSPARENT)
+                .strokeWidth(4);
+        Toast.makeText(getActivity(), "No Meseum Around", Toast.LENGTH_SHORT).show();
+        myCircle = googleMap.addCircle(circleOptions);
+    }
+    /*@Override
     public void onInfoWindowClick(Marker marker)
     {
         // marker id -> m0, m1, m2 dst..
         String id = marker.getId();
         id = id.substring(1);
-        LocationManager locationManager = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
 
-        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
-        if(location!=null){
-            Double s = location.getLatitude();
-            Double ss = location.getLongitude();
-            Double as =  marker.getPosition().latitude;
-            Double sa =  marker.getPosition().longitude;
-            String sss = marker.getTitle();
-            Bundle bundle = new Bundle();
-            // bundle.putString(KEY_NAMA, listTempatMakan.get(Integer.parseInt(id)).getmuseum_name());
-            bundle.putString(KEY_NAMA, sss);
-            bundle.putDouble(KEY_LAT_TUJUAN, as);
-            bundle.putDouble(KEY_LNG_TUJUAN, sa);
-            bundle.putDouble(KEY_LAT_ASAL, s);
-            bundle.putDouble(KEY_LNG_ASAL, ss);
+        // location = googleMap.getMyLocation();
+        //myLocation = new LatLng(location.getLatitude(), location.getLongitude());
 
-           // Intent i = new Intent(map.this, InfoMuseum.class);
-            Intent i = new Intent(map.this.getActivity(), InfoMuseum.class);
-            i.putExtras(bundle);
-            startActivity(i);
 
-        }
-    }
+        Bundle bundle = new Bundle();
+        double as = -6.1214399337768555;
+        double sa = 106.77400207519531;
+        double casdx = -6.2897726;
+        double asdads = -106.8215664;
+        // bundle.putString(KEY_NAMA, listTempatMakan.get(Integer.parseInt(id)).getmuseum_name());
+        bundle.putString(KEY_NAMA, "sdasadadasd");
+        bundle.putDouble(KEY_LAT_TUJUAN, as);
+        bundle.putDouble(KEY_LNG_TUJUAN, sa);
+        bundle.putDouble(KEY_LAT_ASAL, casdx);
+        bundle.putDouble(KEY_LNG_ASAL, asdads);
+
+        // Intent i = new Intent(map.this, InfoMuseum.class);
+        Intent i = new Intent(drawing.this.getActivity(), InfoMuseum.class);
+        i.putExtras(bundle);
+        startActivity(i);
+
+    } */
 }
 
 

@@ -12,8 +12,8 @@ public class museum {
     private String museum_foto;
     private String museum_temp;
     private String regional_name;
-    private String latitude;
-    private String longitude;
+    private Double latitude;
+    private Double longitude;
 
 
     public museum() {
@@ -21,7 +21,7 @@ public class museum {
     }
 
     public museum(String museum_id, String museum_name, String museum_price, String museum_desc,
-                  String museum_open, String museum_close, String regional_id, String museum_foto, String museum_temp, String regional_name ) {
+                  String museum_open, String museum_close, String regional_id, String museum_foto, String museum_temp, String regional_name, Double latitude, Double longitude ) {
         super();
         this.museum_id = museum_id;
         this.museum_name = museum_name;
@@ -33,6 +33,8 @@ public class museum {
         this.museum_foto = museum_foto;
         this.museum_temp = museum_temp;
         this.regional_name = regional_name;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
 
@@ -78,6 +80,13 @@ public class museum {
         return regional_name;
     }
 
+    public Double getLatitude() {
+        return latitude;
+    }
+    public Double getLongitude() {
+        return longitude;
+    }
+
     public void setmuseum_name(String museum_name) {
         this.museum_name = museum_name;
     }
@@ -90,6 +99,12 @@ public class museum {
         this.regional_name = regional_name;
     }
 
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
 
 
 }

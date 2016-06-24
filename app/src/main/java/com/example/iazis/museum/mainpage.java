@@ -4,9 +4,8 @@ import android.app.FragmentManager;
 import android.graphics.Color;
 import android.os.Bundle;
 
-import android.view.View;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,16 +14,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.iazis.museum.map;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.model.CircleOptions;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 public class mainpage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     GoogleMap gmaps;
@@ -36,16 +29,16 @@ public class mainpage extends AppCompatActivity implements NavigationView.OnNavi
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+       /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -57,11 +50,8 @@ public class mainpage extends AppCompatActivity implements NavigationView.OnNavi
         navigationView.setNavigationItemSelectedListener(this);
         FragmentManager fm = getFragmentManager();
         fm.beginTransaction().replace(R.id.content_frame, new map()).commit();
-
-    }
-
-
-
+        final android.support.v4.app.FragmentManager f = getSupportFragmentManager();
+  }
 
     @Override
     public void onBackPressed() {
@@ -82,10 +72,7 @@ public class mainpage extends AppCompatActivity implements NavigationView.OnNavi
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+       int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
@@ -100,6 +87,7 @@ public class mainpage extends AppCompatActivity implements NavigationView.OnNavi
     public boolean onNavigationItemSelected(MenuItem item) {
         FragmentManager fm = getFragmentManager();
 
+
         int id = item.getItemId();
 
         if (id == R.id.nav_info) {
@@ -110,15 +98,13 @@ public class mainpage extends AppCompatActivity implements NavigationView.OnNavi
            fm.beginTransaction().replace(R.id.content_frame, new profile()).commit();
         } else if (id == R.id.nav_map) {
             fm.beginTransaction().replace(R.id.content_frame, new map()).commit();
+
         }
         else if (id == R.id.nav_drawing) {
+            fm.beginTransaction().replace(R.id.content_frame, new drawing()).commit();
 
-            Snackbar snackbar = Snackbar.make(findViewById(R.id.content_frame), "Draw Polyline in your map", Snackbar.LENGTH_LONG)
-                    .setAction("DONE", new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                }
-            });
+
+            Snackbar snackbar = Snackbar.make(findViewById(R.id.content_frame), "Tap int the map to detect any museum around", Snackbar.LENGTH_LONG);
             snackbar.setActionTextColor(Color.RED);
             View sbView = snackbar.getView();
             TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);

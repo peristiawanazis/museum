@@ -47,7 +47,7 @@ public class infoadapter extends ArrayAdapter<museum> {
         }
         holder.tvName.setText(actorList.get(position).getmuseum_name());
         holder.desc.setText(actorList.get(position).getmuseum_desc());
-        holder.regional.setText(actorList.get(position).getregional_name());
+        holder.regional.setText(actorList.get(position).getregional_id());
         return v;
 
     }
