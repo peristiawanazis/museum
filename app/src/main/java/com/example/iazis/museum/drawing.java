@@ -178,7 +178,7 @@ public class drawing extends Fragment implements GoogleMap.OnMapClickListener {
         for (int i = 0; i < jsonArray.length(); i++) {
             // Create a marker for each city in the JSON data.
             JSONObject jsonObj = jsonArray.getJSONObject(i);
-            googleMap.addMarker(new MarkerOptions()
+            Marker ass = googleMap.addMarker(new MarkerOptions()
                             .title(jsonObj.getString("museum_name"))
                             .snippet(jsonObj.getString("museum_desc"))
                             .position(new LatLng(
@@ -187,6 +187,7 @@ public class drawing extends Fragment implements GoogleMap.OnMapClickListener {
                             )).icon(BitmapDescriptorFactory.fromResource(R.drawable.mrk))
             );
 
+            ass.setVisible(false);
             moveToMyLocation();
             googleMap.setOnMapClickListener(this);
 

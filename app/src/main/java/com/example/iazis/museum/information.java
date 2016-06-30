@@ -17,17 +17,27 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
+import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.ParseException;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -35,6 +45,11 @@ public class information extends android.app.Fragment {
     ListView lv;
     ArrayList<museum> actorsList;
     infoadapter adapter;
+    public static final String	KEY_NAMA	= "museum_nama";
+    public static final String	KEY_LAT_TUJUAN	= "lat_tujuan";
+    public static final String	KEY_LNG_TUJUAN	= "lng_tujuan";
+    public static final String	KEY_LAT_ASAL	= "museum_lat";
+    public static final String	KEY_LNG_ASAL	= "museum_long";
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -48,6 +63,50 @@ public class information extends android.app.Fragment {
         new JSONAsynTask().execute("http://arifmuseum.esy.es/peta.php");
         adapter = new infoadapter(getActivity(), R.layout.isi_info_listview, actorsList);
         lv.setAdapter(adapter);
+        lv.setClickable(true);
+
+        LocationManager locationManager = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+
+
+        }
+        final Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                Bundle bundle = new Bundle();
+                // bundle.putString(KEY_NAMA, listTempatMakan.get(Integer.parseInt(id)).getmuseum_name());
+                String sss = actorsList.get(position).getmuseum_name();
+                Double as = actorsList.get(position).getLatitude();
+                Double sa = actorsList.get(position).getLongitude();
+                Double s = location.getLatitude();
+                Double ss = location.getLongitude();
+                bundle.putString(KEY_NAMA, sss);
+                bundle.putDouble(KEY_LAT_TUJUAN, as);
+                bundle.putDouble(KEY_LNG_TUJUAN, sa);
+                bundle.putDouble(KEY_LAT_ASAL, s);
+                bundle.putDouble(KEY_LNG_ASAL, ss);
+
+                // Intent i = new Intent(map.this, InfoMuseum.class);
+                Intent i = new Intent(information.this.getActivity(), InfoMuseum.class);
+                i.putExtras(bundle);
+                startActivity(i);
+
+
+            }
+        });
         return  vw;
     }
 
@@ -89,7 +148,11 @@ public class information extends android.app.Fragment {
                         museum.setmuseum_name(object.getString("museum_name"));
                         museum.setregional_name(object.getString("regional_name"));
                         museum.setmuseum_desc(object.getString("museum_desc"));
+                        museum.setLatitude(object.getDouble("museum_lat"));
+                        museum.setLongitude(object.getDouble("museum_long"));
+
                         actorsList.add(museum);
+
                     }
                     return true;
                 }
@@ -115,6 +178,12 @@ public class information extends android.app.Fragment {
                 Toast.makeText(getActivity(), "Unable to fetch data from server", Toast.LENGTH_LONG).show();
 
         }
+
+
+
+
     }
+
+
 
 }

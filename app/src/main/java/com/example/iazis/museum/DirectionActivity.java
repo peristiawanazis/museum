@@ -23,6 +23,7 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.example.iazis.museum.map;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -52,12 +53,12 @@ public class DirectionActivity extends FragmentActivity  implements GoogleMap.On
 
         Bundle b = getIntent().getExtras();
         if (b != null) {
-            start = new LatLng(b.getDouble(com.example.iazis.museum.map.KEY_NAMA), b.getDouble(com.example.iazis.museum.map.KEY_LNG_ASAL));
+            start = new LatLng(b.getDouble(com.example.iazis.museum.map.KEY_LAT_ASAL), b.getDouble(com.example.iazis.museum.map.KEY_LNG_ASAL));
             end = new LatLng(b.getDouble(com.example.iazis.museum.map.KEY_LAT_TUJUAN), b.getDouble(com.example.iazis.museum.map.KEY_LNG_TUJUAN));
             nama = b.getString(com.example.iazis.museum.map.KEY_NAMA);
         }
 
-       // new AsyncTaskDirection().execute();
+        new AsyncTaskDirection().execute();
     }
 
     private void setupMapIfNeeded() {
@@ -107,7 +108,7 @@ public class DirectionActivity extends FragmentActivity  implements GoogleMap.On
         Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
         if (location != null)
         {
-            map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 20));
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 11));
         }
     }
 
@@ -131,15 +132,19 @@ public class DirectionActivity extends FragmentActivity  implements GoogleMap.On
         }
     }
 
-  /*  private class AsyncTaskDirection extends AsyncTask {
+    @Override
+    public void onMyLocationChange(Location location) {
 
-        @Override
-        protected Void doInBackground(Void... params)
-        {
+    }
+
+    private class AsyncTaskDirection extends AsyncTask<String, Void, Boolean> {
+
+      @Override
+        protected Boolean doInBackground(String... params) {
             String uri = URL
                     + "origin=" + start.latitude + "," + start.longitude
-                + "&destination=" + end.latitude + "," + end.longitude
-                + "&sensor=true&units=metric";
+                    + "&destination=" + end.latitude + "," + end.longitude
+                    + "&sensor=false&units=metric";
 
             JSONObject jObject = json.getJSONFromURL(uri);
             listDirections = json.getDirection(jObject);
@@ -159,24 +164,28 @@ public class DirectionActivity extends FragmentActivity  implements GoogleMap.On
         }
 
         @Override
-        protected void onPostExecute(Void result)
+        protected void onPostExecute(Boolean result)
         {
 // TODO Auto-generated method stub
             super.onPostExecute(result);
             pDialog.dismiss();
             gambarDirection();
-        }
 
-    }*/
+
+    }
 
     public void gambarDirection()
     {
-        PolylineOptions line = new PolylineOptions().width(3).color(Color.BLUE);
-        for (int i = 0; i < listDirections.size(); i++) { line.add((LatLng) listDirections.get(i)); } map.addPolyline(line);
+        PolylineOptions line = new PolylineOptions().width(9).color(Color.RED);
+        for (int i = 0; i < listDirections.size(); i++) {
+            line.add((LatLng) listDirections.get(i)); } map.addPolyline(line);
         // tambah marker di posisi end
-         map.addMarker(new MarkerOptions() .position(end) .title(nama)); }
+         map.addMarker(new MarkerOptions()
+                 .position(end)
+                 .title(nama)
+                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.mrk))
 
-    @Override
-    public void onMyLocationChange(Location location) {
-        Toast.makeText(this, "Lokasi berubah ke " + location.getLatitude() + "," + location.getLongitude(), Toast.LENGTH_SHORT).show(); }
-}
+         ); }
+
+
+}}

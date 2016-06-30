@@ -277,7 +277,7 @@ public class nearme extends Fragment  {
                     .snippet(new String("asdfasd")));
             googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(s,ss), 12));
             googleMap.addCircle(new CircleOptions()
-                    .center(new LatLng(-6.3004751, 106.8140812))
+                    .center(new LatLng(s, ss))
                     .radius(2500)   //set radius in meters
                     .fillColor(0x00000000)   //default
                     .strokeColor(Color.BLUE)
