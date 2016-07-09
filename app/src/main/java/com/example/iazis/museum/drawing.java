@@ -191,6 +191,7 @@ public class drawing extends Fragment implements GoogleMap.OnMapClickListener {
             moveToMyLocation();
             googleMap.setOnMapClickListener(this);
 
+
         }
     }
 
