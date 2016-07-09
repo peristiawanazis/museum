@@ -106,7 +106,7 @@ public class JSONHelper {
         return jsonObject;
     }
 
-    public ArrayList<museum> getTempatMakanAll(JSONObject jobj)
+    /*public ArrayList<museum> getTempatMakanAll(JSONObject jobj)
     {
         ArrayList<museum> listTempatMakan = new ArrayList<museum>();
 
@@ -132,7 +132,7 @@ public class JSONHelper {
             e.printStackTrace();
         }
         return listTempatMakan;
-    }
+    }*/
 
     private List decodePoly(String encoded)
     {
@@ -174,6 +174,7 @@ public class JSONHelper {
         {
             JSONObject objRoute = jObj.getJSONArray(TAG_ROUTES).getJSONObject(0);
             JSONObject objLegs = objRoute.getJSONArray(TAG_LEGS).getJSONObject(0);
+            JSONObject objDistance = objLegs.getJSONObject("distance");
             JSONArray arraySteps = objLegs.getJSONArray(TAG_STEPS);
             for (int wi2t = 0; wi2t < arraySteps.length(); wi2t++) {
                 JSONObject step = arraySteps.getJSONObject(wi2t);
@@ -184,12 +185,14 @@ public class JSONHelper {
                 directions.add(new LatLng(latStart, lngStart));
                 JSONObject poly = step.getJSONObject(TAG_POLYLINE);
                 String encodedPoly = poly.getString(TAG_POINTS);
+                String text_duration = objDistance.getString("text");
                 List decodedPoly = decodePoly(encodedPoly);
                 /*for (int eka = 0; eka < decodedPoly.size(); eka++) {
                     directions.add(new LatLng(decodedPoly.get(eka).latitude, decodedPoly.get(eka).longitude)); } */
                 double latEnd = objEnd.getDouble(TAG_LAT);
                 double lngEnd = objEnd.getDouble(TAG_LNG);
-                directions.add(new LatLng(latEnd, lngEnd)); }
+                directions.add(new LatLng(latEnd, lngEnd));
+                }
             } catch (JSONException e) {
              }
             return directions;

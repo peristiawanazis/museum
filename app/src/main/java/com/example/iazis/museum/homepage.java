@@ -26,7 +26,7 @@ public class homepage extends Activity {
         TextView descdua = (TextView) findViewById(R.id.descdua);
         TextView tittle = (TextView) findViewById(R.id.tittle);
         tittle.setText("Museum V.01");
-        desc.setText("help you to find a mesuem and provide a shortest path with");
+        desc.setText("Membantu Anda Menemukan Musesum dengan Jarak terdekat dari Lokasi Anda");
         descdua.setText("this app created by arief h for final exam ");
         desc.setTypeface(Typeface.SANS_SERIF, 1);
         descdua.setTypeface(Typeface.MONOSPACE, 0);

@@ -18,8 +18,11 @@ import android.widget.Toast;
 
 import com.example.iazis.museum.map;
 
+import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -39,10 +42,12 @@ public class DirectionActivity extends FragmentActivity  implements GoogleMap.On
     private LatLng end;
     private String nama;
 
+
     private GoogleMap map;
     private JSONHelper json;
     private ProgressDialog pDialog;
     private List listDirections;
+    private GoogleApiClient googleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +61,10 @@ public class DirectionActivity extends FragmentActivity  implements GoogleMap.On
             start = new LatLng(b.getDouble(com.example.iazis.museum.map.KEY_LAT_ASAL), b.getDouble(com.example.iazis.museum.map.KEY_LNG_ASAL));
             end = new LatLng(b.getDouble(com.example.iazis.museum.map.KEY_LAT_TUJUAN), b.getDouble(com.example.iazis.museum.map.KEY_LNG_TUJUAN));
             nama = b.getString(com.example.iazis.museum.map.KEY_NAMA);
+
         }
+
+
 
         new AsyncTaskDirection().execute();
     }
@@ -144,7 +152,7 @@ public class DirectionActivity extends FragmentActivity  implements GoogleMap.On
             String uri = URL
                     + "origin=" + start.latitude + "," + start.longitude
                     + "&destination=" + end.latitude + "," + end.longitude
-                    + "&sensor=false&units=metric";
+                    + "&sensor=false&mode=driving&alternatives=true";
 
             JSONObject jObject = json.getJSONFromURL(uri);
             listDirections = json.getDirection(jObject);
@@ -180,10 +188,10 @@ public class DirectionActivity extends FragmentActivity  implements GoogleMap.On
         for (int i = 0; i < listDirections.size(); i++) {
             line.add((LatLng) listDirections.get(i)); } map.addPolyline(line);
         // tambah marker di posisi end
-         map.addMarker(new MarkerOptions()
-                 .position(end)
-                 .title(nama)
-                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.mrk))
+        map.addMarker(new MarkerOptions()
+                        .position(end)
+                        .title(nama)
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.mrk))
 
          ); }
 

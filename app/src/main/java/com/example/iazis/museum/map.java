@@ -74,7 +74,7 @@ public class map extends Fragment implements GoogleMap.OnInfoWindowClickListener
     private GoogleMap googleMap;
     private LatLng myLocation;
     Location location;
-    private ArrayList<museum>   listTempatMakan;
+    ArrayList<museum> actorsList;
 
 
     public static final String	KEY_NAMA	= "museum_nama";
@@ -82,6 +82,13 @@ public class map extends Fragment implements GoogleMap.OnInfoWindowClickListener
     public static final String	KEY_LNG_TUJUAN	= "lng_tujuan";
     public static final String	KEY_LAT_ASAL	= "museum_lat";
     public static final String	KEY_LNG_ASAL	= "museum_long";
+    public static final String	KEY_REGIONAL	= "regional_name";
+    public static final String	KEY_DESC	= "museum_desc";
+    public static final String	KEY_JAMBUKA	= "museum_open";
+    public static final String	KEY_JAMTUTUP	= "museum_close";
+    public static final String	KEY_INFO	= "museum_info";
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -179,14 +186,16 @@ public class map extends Fragment implements GoogleMap.OnInfoWindowClickListener
         for (int i = 0; i < jsonArray.length(); i++) {
             // Create a marker for each city in the JSON data.
             JSONObject jsonObj = jsonArray.getJSONObject(i);
+            museum museum = new museum();
             googleMap.addMarker(new MarkerOptions()
                             .title(jsonObj.getString("museum_name"))
                             .snippet(jsonObj.getString("museum_desc"))
                             .position(new LatLng(
                                     jsonObj.getDouble("museum_lat"),
                                     jsonObj.getDouble("museum_long")
-                            )).icon(BitmapDescriptorFactory.fromResource(R.drawable.mrk))
+                            )).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
             );
+            museum.setmuseum_info(jsonObj.getString("museum_info"));
 
             moveToMyLocation();
 
@@ -195,6 +204,7 @@ public class map extends Fragment implements GoogleMap.OnInfoWindowClickListener
  }
 
     private void moveToMyLocation() {
+
         LocationManager locationManager = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
         String provider = locationManager.getBestProvider(criteria, true);
@@ -214,6 +224,7 @@ public class map extends Fragment implements GoogleMap.OnInfoWindowClickListener
         Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
 
         if(location!=null){
+
             Double s = location.getLatitude();
             Double ss = location.getLongitude();
 
@@ -233,6 +244,7 @@ public class map extends Fragment implements GoogleMap.OnInfoWindowClickListener
     @Override
     public void onInfoWindowClick(Marker marker)
     {
+
         // marker id -> m0, m1, m2 dst..
         String id = marker.getId();
         id = id.substring(1);
@@ -252,18 +264,23 @@ public class map extends Fragment implements GoogleMap.OnInfoWindowClickListener
         }
         Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
         if(location!=null){
+
             Double s = location.getLatitude();
             Double ss = location.getLongitude();
             Double as =  marker.getPosition().latitude;
             Double sa =  marker.getPosition().longitude;
             String sss = marker.getTitle();
+            String asdsad = marker.getSnippet();
             Bundle bundle = new Bundle();
-            // bundle.putString(KEY_NAMA, listTempatMakan.get(Integer.parseInt(id)).getmuseum_name());
+
+             bundle.putString(KEY_DESC, asdsad);
+
             bundle.putString(KEY_NAMA, sss);
             bundle.putDouble(KEY_LAT_TUJUAN, as);
             bundle.putDouble(KEY_LNG_TUJUAN, sa);
             bundle.putDouble(KEY_LAT_ASAL, s);
             bundle.putDouble(KEY_LNG_ASAL, ss);
+            bundle.putString(KEY_REGIONAL, sss);
 
            // Intent i = new Intent(map.this, InfoMuseum.class);
             Intent i = new Intent(map.this.getActivity(), InfoMuseum.class);
@@ -272,6 +289,8 @@ public class map extends Fragment implements GoogleMap.OnInfoWindowClickListener
 
         }
     }
+
+
 }
 
 

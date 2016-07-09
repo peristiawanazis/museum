@@ -50,6 +50,12 @@ public class information extends android.app.Fragment {
     public static final String	KEY_LNG_TUJUAN	= "lng_tujuan";
     public static final String	KEY_LAT_ASAL	= "museum_lat";
     public static final String	KEY_LNG_ASAL	= "museum_long";
+    public static final String	KEY_REGIONAL	= "regional_name";
+    public static final String	KEY_DESC	= "museum_desc";
+    public static final String	KEY_JAMBUKA	= "museum_open";
+    public static final String	KEY_JAMTUTUP	= "museum_close";
+    public static final String	KEY_INFO	= "museum_info";
+
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -87,7 +93,11 @@ public class information extends android.app.Fragment {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 Bundle bundle = new Bundle();
-                // bundle.putString(KEY_NAMA, listTempatMakan.get(Integer.parseInt(id)).getmuseum_name());
+                 bundle.putString(KEY_REGIONAL, actorsList.get(position).getregional_name());
+                bundle.putString(KEY_DESC, actorsList.get(position).getmuseum_desc());
+                bundle.putString(KEY_JAMBUKA, actorsList.get(position).getmuseum_open());
+                bundle.putString(KEY_JAMTUTUP, actorsList.get(position).getmuseum_close());
+                bundle.putString(KEY_INFO, actorsList.get(position).getmuseum_info());
                 String sss = actorsList.get(position).getmuseum_name();
                 Double as = actorsList.get(position).getLatitude();
                 Double sa = actorsList.get(position).getLongitude();
@@ -150,7 +160,10 @@ public class information extends android.app.Fragment {
                         museum.setmuseum_desc(object.getString("museum_desc"));
                         museum.setLatitude(object.getDouble("museum_lat"));
                         museum.setLongitude(object.getDouble("museum_long"));
-
+                        museum.setregional_name(object.getString("regional_name"));
+                        museum.setmuseum_open(object.getString("museum_open"));
+                        museum.setmuseum_close(object.getString("museum_close"));
+                        museum.setmuseum_info(object.getString("museum_info"));
                         actorsList.add(museum);
 
                     }

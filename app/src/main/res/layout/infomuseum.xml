@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/nmms"
         android:textStyle="bold"
-        android:textColor="@android:color/holo_blue_light"
+        android:textColor="@android:color/holo_orange_dark"
         />
     <TextView
         android:id="@+id/alamatmuseum"
@@ -39,13 +39,99 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/alamatmuseum"
         android:textStyle="bold"
-        android:textColor="@android:color/holo_blue_light"
+        android:textColor="@android:color/holo_orange_dark"
          />
+    <TextView
+        android:id="@+id/descmuseum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/alamatTempatMakan"
+        android:text="Keterangan :"
+        android:textStyle="bold"
+        android:textSize="10pt"
+        android:textColor="@android:color/holo_blue_dark"/>
+    <TextView
+        android:id="@+id/isidescmuseum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/descmuseum"
+        android:textStyle="bold"
+        android:textColor="@android:color/holo_orange_dark"
+        />
+    <TextView
+        android:id="@+id/regionalmuseum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/isidescmuseum"
+        android:text="Regional :"
+        android:textStyle="bold"
+        android:textSize="10pt"
+        android:textColor="@android:color/holo_blue_dark"/>
+    <TextView
+        android:id="@+id/isiregionalmuseum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/regionalmuseum"
+        android:textStyle="bold"
+        android:textColor="@android:color/holo_orange_dark"
+        />
+    <TextView
+        android:id="@+id/jambukamuseum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/isiregionalmuseum"
+        android:text="Jam Buka :"
+        android:textStyle="bold"
+        android:textSize="10pt"
+        android:textColor="@android:color/holo_blue_dark"/>
+    <TextView
+        android:id="@+id/isijambukamuseum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/jambukamuseum"
+        android:textStyle="bold"
+        android:textColor="@android:color/holo_orange_dark"
+        />
+    <TextView
+        android:id="@+id/jamtutupmuseum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/isijambukamuseum"
+        android:text="Jam Tutup :"
+        android:textStyle="bold"
+        android:textSize="10pt"
+        android:textColor="@android:color/holo_blue_dark"/>
+    <TextView
+        android:id="@+id/isijamtutupmuseum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/jamtutupmuseum"
+        android:textStyle="bold"
+        android:textColor="@android:color/holo_orange_dark"
+        />
+    <TextView
+        android:id="@+id/infomuseum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/isijamtutupmuseum"
+        android:text="Keterangan :"
+        android:textStyle="bold"
+        android:textSize="10pt"
+        android:textColor="@android:color/holo_blue_dark"/>
+    <TextView
+        android:id="@+id/isiinfomuesum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/infomuseum"
+        android:textStyle="bold"
+        android:textColor="@android:color/holo_orange_dark"
+        />
+
     <Button
         android:id="@+id/btnDirection"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/alamatTempatMakan"
+        android:layout_below="@id/isiinfomuesum"
         android:layout_marginTop="5dp"
         android:text="Get Direction" />
 

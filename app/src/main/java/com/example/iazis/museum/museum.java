@@ -14,6 +14,9 @@ public class museum {
     private String regional_name;
     private Double latitude;
     private Double longitude;
+    private String durasi;
+    private String jarak;
+    private String museum_info;
 
 
     public museum() {
@@ -21,7 +24,7 @@ public class museum {
     }
 
     public museum(String museum_id, String museum_name, String museum_price, String museum_desc,
-                  String museum_open, String museum_close, String regional_id, String museum_foto, String museum_temp, String regional_name, Double latitude, Double longitude ) {
+                  String museum_open, String museum_close, String regional_id, String museum_foto, String museum_temp, String regional_name, Double latitude, Double longitude, String durasi, String jarak, String museum_info ) {
         super();
         this.museum_id = museum_id;
         this.museum_name = museum_name;
@@ -35,6 +38,10 @@ public class museum {
         this.regional_name = regional_name;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.jarak = jarak;
+        this.durasi = durasi;
+        this.museum_info = museum_info;
+
     }
 
 
@@ -83,8 +90,13 @@ public class museum {
     public Double getLatitude() {
         return latitude;
     }
+
     public Double getLongitude() {
         return longitude;
+    }
+
+    public String getmuseum_info() {
+        return museum_info;
     }
 
     public void setmuseum_name(String museum_name) {
@@ -99,11 +111,25 @@ public class museum {
         this.regional_name = regional_name;
     }
 
+    public void setmuseum_open(String museum_open) {
+        this.museum_open = museum_open;
+    }
+
+    public void setmuseum_info(String museum_info) { this.museum_info = museum_info;}
+
+    public void setmuseum_close(String museum_close) { this.museum_close = museum_close;}
+
     public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
+    }
+    public void setDurasi(String durasi) {
+        this.durasi = durasi;
+    }
+    public void setJarak(String jarak) {
+        this.jarak = jarak;
     }
 
 

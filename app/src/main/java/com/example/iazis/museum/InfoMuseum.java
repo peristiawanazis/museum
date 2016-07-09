@@ -14,11 +14,22 @@ public class InfoMuseum extends Activity implements OnClickListener
 
     private TextView	tvNama;
     private TextView	tvAlamat;
+    private TextView	tvr;
+    private TextView	tvd;
+    private TextView	jmbk;
+    private TextView	jmttp;
+    private TextView	tinfo;
     private Button		btnGetDirection;
 
     private LatLng		lokasiTujuan;
     private LatLng		lokasiAwal;
     private String		nama;
+    private String		regional;
+    private String		desc;
+    private String		jambuka;
+    private String		jamtutup;
+    private String		info;
+
 
 
     @Override
@@ -35,6 +46,12 @@ public class InfoMuseum extends Activity implements OnClickListener
             nama = bundle.getString(map.KEY_NAMA);
             lokasiTujuan = new LatLng(bundle.getDouble(map.KEY_LAT_TUJUAN),bundle.getDouble(map.KEY_LNG_TUJUAN));
             lokasiAwal = new LatLng(bundle.getDouble(map.KEY_LAT_ASAL),bundle.getDouble(map.KEY_LNG_ASAL));
+            regional = bundle.getString(map.KEY_REGIONAL);
+            desc = bundle.getString(map.KEY_DESC);
+            jambuka = bundle.getString(map.KEY_JAMBUKA);
+            jamtutup = bundle.getString(map.KEY_JAMTUTUP);
+            info = bundle.getString(map.KEY_INFO);
+
         }
 
         setTeksView();
@@ -45,6 +62,11 @@ public class InfoMuseum extends Activity implements OnClickListener
     {
         tvNama.setText(nama);
         tvAlamat.setText(lokasiTujuan.toString());
+        tvr.setText(regional);
+        tvd.setText(desc);
+        jmbk.setText(jambuka);
+        jmttp.setText(jamtutup);
+        tinfo.setText(info);
 
     }
 
@@ -52,6 +74,11 @@ public class InfoMuseum extends Activity implements OnClickListener
     {
         tvAlamat = (TextView) findViewById(R.id.alamatTempatMakan);
         tvNama = (TextView) findViewById(R.id.namaTempatMakan);
+        tvr = (TextView) findViewById(R.id.isiregionalmuseum);
+        tvd = (TextView) findViewById(R.id.isidescmuseum);
+        jmbk = (TextView) findViewById(R.id.isijambukamuseum);
+        jmttp = (TextView) findViewById(R.id.isijamtutupmuseum);
+        tinfo = (TextView) findViewById(R.id.isiinfomuesum);
         btnGetDirection = (Button) findViewById(R.id.btnDirection);
         btnGetDirection.setOnClickListener(this);
     }

@@ -227,7 +227,7 @@ public class drawing extends Fragment implements GoogleMap.OnMapClickListener {
     }
     @Override
     public void onMapClick(LatLng point) {
-        List<Marker> markers = new ArrayList<Marker>();
+        List<Marker> markers = new ArrayList<ass>();
         if (myCircle != null) {
 
             myCircle.remove();
