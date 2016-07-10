@@ -1,5 +1,6 @@
 package com.example.iazis.museum;
 
+import android.location.Location;
 import android.util.Log;
 
 
@@ -27,6 +28,7 @@ public class JSONHelper {
     private InputStream is				= null;
     private JSONObject jsonObject		= null;
     private String			json			= "";
+    ArrayList<museum> actorsList;
 
     private final String TAG_TEMPATMAKAN = "museum";
     private final String museum_id = "museum_id";
@@ -106,9 +108,9 @@ public class JSONHelper {
         return jsonObject;
     }
 
-    /*public ArrayList<museum> getTempatMakanAll(JSONObject jobj)
+  /*  public ArrayList<museum> getTempatMakanAll(JSONObject jobj)
     {
-        ArrayList<museum> listTempatMakan = new ArrayList<museum>();
+       actorsList = new ArrayList<museum>();
 
         try
         {
@@ -116,38 +118,71 @@ public class JSONHelper {
 
             for (int i = 0; i < arrayTempatMakan.length(); i++)
             {
+
                 JSONObject jobject = arrayTempatMakan.getJSONObject(i);
+                JSONObject objRoute = jobject.getJSONArray(TAG_ROUTES).getJSONObject(0);
+                JSONObject objLegs = objRoute.getJSONArray(TAG_LEGS).getJSONObject(0);
+                JSONObject objDistance = objLegs.getJSONObject("distance");
+                JSONObject objDuration = objLegs.getJSONObject("duration");
+
+
+
 
                 Log.d("log", "muter ke " + i);
-                listTempatMakan.add(new museum(jobject.getString(museum_id), jobject.getString(museum_name),
+                museum museum = new museum();
+                museum.setmuseum_name(jobject.getString("museum_name"));
+                museum.setregional_name(jobject.getString("regional_name"));
+                museum.setmuseum_desc(jobject.getString("museum_desc"));
+                museum.setLatitude(jobject.getDouble("museum_lat"));
+                museum.setLongitude(jobject.getDouble("museum_long"));
+                museum.setregional_name(jobject.getString("regional_name"));
+                museum.setmuseum_open(jobject.getString("museum_open"));
+                museum.setmuseum_close(jobject.getString("museum_close"));
+                museum.setmuseum_info(jobject.getString("museum_info"));
+                museum.setDurasi(objDuration.getString("durasi"));
+                museum.setDurasi(objDistance.getString("jarak"));
+                actorsList.add(museum);
+                //JSONObject jobject = arrayTempatMakan.getJSONObject(i);
+
+              Log.d("log", "muter ke " + i);
+                actorsList.add(new museum(jobject.getString(museum_id), jobject.getString(museum_name),
                                                 jobject.getString(museum_price), jobject.getString(museum_desc),
                                                 jobject.getString(museum_open), jobject.getString(museum_close),
                                                 jobject.getString(regional_id), jobject.getString(museum_foto),
                                                 jobject.getString(museum_temp), jobject.getString(regional_name),
-                                                jobject.getDouble(latitude), jobject.getDouble(longitude)));
+                                                jobject.getDouble(latitude), jobject.getDouble(ngitude)));
 
             }
         } catch (JSONException e)
         {
             e.printStackTrace();
         }
-        return listTempatMakan;
-    }*/
+        return actorsList;
+    }
+          */
 
-    private List decodePoly(String encoded)
-    {
-        List poly = new ArrayList();
+
+
+    private ArrayList<LatLng> decodePoly(String encoded) {
+        ArrayList<LatLng> poly = new ArrayList<LatLng>();
         int index = 0, len = encoded.length();
         int lat = 0, lng = 0;
-        while (index < len) { int b, shift = 0, result = 0; do { b = encoded.charAt(index++) - 63; result |= (b & 0x1f) << shift; shift += 5; } while (b >= 0x20);
+        while (index < len) {
+            int b, shift = 0, result = 0;
+            do {
+                b = encoded.charAt(index++) - 63;
+                result |= (b & 0x1f) << shift;
+                shift += 5;
+            } while (b >= 0x20);
             int dlat = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
             lat += dlat;
             shift = 0;
             result = 0;
-            do
-            {
+            do {
                 b = encoded.charAt(index++) - 63;
-                result |= (b & 0x1f) << shift; shift += 5; } while (b >= 0x20);
+                result |= (b & 0x1f) << shift;
+                shift += 5;
+            } while (b >= 0x20);
             int dlng = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
             lng += dlng;
 
@@ -155,7 +190,6 @@ public class JSONHelper {
             poly.add(position);
         }
         return poly;
-
     }
 
     /*
@@ -186,12 +220,20 @@ public class JSONHelper {
                 JSONObject poly = step.getJSONObject(TAG_POLYLINE);
                 String encodedPoly = poly.getString(TAG_POINTS);
                 String text_duration = objDistance.getString("text");
-                List decodedPoly = decodePoly(encodedPoly);
-                /*for (int eka = 0; eka < decodedPoly.size(); eka++) {
-                    directions.add(new LatLng(decodedPoly.get(eka).latitude, decodedPoly.get(eka).longitude)); } */
+                ArrayList<LatLng> decodedPoly = decodePoly(encodedPoly);
+                for (int eka = 0; eka < decodedPoly.size(); eka++) {
+                    directions.add(new LatLng(decodedPoly.get(eka).latitude, decodedPoly.get(eka).longitude));
+
+                    String distanceText = objDistance.getString("text");
+                    String distanceValue = String.valueOf(objDistance.getString("value"));
+                  //  directions.add(text_duration);
+
+                }
                 double latEnd = objEnd.getDouble(TAG_LAT);
                 double lngEnd = objEnd.getDouble(TAG_LNG);
                 directions.add(new LatLng(latEnd, lngEnd));
+
+
                 }
             } catch (JSONException e) {
              }

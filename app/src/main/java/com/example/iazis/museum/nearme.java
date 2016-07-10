@@ -39,6 +39,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
@@ -55,6 +56,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -62,7 +64,7 @@ import java.util.ArrayList;
 import static com.google.android.gms.internal.zzir.runOnUiThread;
 
 
-public class nearme extends Fragment  {
+public class nearme extends Fragment   {
     Circle myCircle;
     ArrayList<LatLng> locations;
     private static final String LOG_TAG = "ExampleApp";
@@ -80,6 +82,12 @@ public class nearme extends Fragment  {
     public static final String	KEY_REGIONAL	= "regional_name";
     public static final String	KEY_DESC	= "museum_desc";
 
+    private static final LatLng POINTA = new LatLng(-6.231143, 106.819085);
+    private static final LatLng POINTB = new LatLng(-6.231143, 106.819085);
+    private static final LatLng POINTC = new LatLng(-6.231143, 106.819085);
+
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -93,9 +101,8 @@ public class nearme extends Fragment  {
         lv=(ListView) v.findViewById(R.id.listnear);
 
         actorsList = new ArrayList<museum>();
-        new JSONAsynTask().execute("http://arifmuseum.esy.es/peta.php");
-        adapter = new infoadapter(getActivity(), R.layout.isi_info_listview, actorsList);
-        lv.setAdapter(adapter);
+       // new JSONAsynTask().execute("http://arifmuseum.esy.es/peta.php");
+
         lv.setClickable(true);
 
         LocationManager locationManager = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
@@ -153,17 +160,17 @@ public class nearme extends Fragment  {
 
         @Override
         protected void onPreExecute() {
-            super.onPreExecute();
+         /*   super.onPreExecute();
             dialog = new ProgressDialog(getActivity());
             dialog.setMessage("Loading, please wait");
             dialog.setTitle("Connecting server");
             dialog.show();
-            dialog.setCancelable(false);
+            dialog.setCancelable(false); */
         }
 
         @Override
         protected Boolean doInBackground(String... urls) {
-            try {
+          /*  try {
                 HttpGet httppost = new HttpGet(urls[0]);
                 HttpClient httpclient = new DefaultHttpClient();
                 HttpResponse response = httpclient.execute(httppost);
@@ -199,18 +206,18 @@ public class nearme extends Fragment  {
                 e.printStackTrace();
             } catch (JSONException e) {
                 e.printStackTrace();
-            }
+            }*/
             return false;
 
         }
 
         protected void onPostExecute(Boolean result) {
 
-            dialog.dismiss();
+           /* dialog.dismiss();
             adapter.notifyDataSetChanged();
             if(result == false)
                 Toast.makeText(getActivity(), "Unable to fetch data from server", Toast.LENGTH_LONG).show();
-
+*/
         }
     }
 
@@ -286,7 +293,7 @@ public class nearme extends Fragment  {
         for (int i = 0; i < jsonArray.length(); i++) {
             // Create a marker for each city in the JSON data.
             JSONObject jsonObj = jsonArray.getJSONObject(i);
-            googleMap.addMarker(new MarkerOptions()
+           Marker dsa = googleMap.addMarker(new MarkerOptions()
                             .title(jsonObj.getString("museum_name"))
                             .snippet(jsonObj.getString("museum_desc"))
                             .position(new LatLng(
@@ -298,9 +305,69 @@ public class nearme extends Fragment  {
             );
 
             moveToMyLocation();
+            LocationManager locationManager = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
+            Criteria criteria = new Criteria();
+            if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                    ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+
+            Location X = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
+
+            Double s = X.getLatitude();
+            Double ss = X.getLongitude();
+            Location asdas = new Location("SD");
+            asdas.setLatitude(s);
+            asdas.setLongitude(ss);
+            Location target = new Location("target");
+            for(LatLng point : new LatLng[]{dsa.getPosition()}) {
+                target.setLatitude(point.latitude);
+                target.setLongitude(point.longitude);
+                BigDecimal _bdDistance;
+                float distance = asdas.distanceTo(target);
+                _bdDistance = round(distance,2);
+                String _strDistance = _bdDistance.toString();
+
+                if(asdas.distanceTo(target) < 2500) {
+                    for(String dfgdfgd : new String[]{dsa.getTitle()}) {
+                        //Toast.makeText(getActivity(), ""+dfgdfgd, Toast.LENGTH_SHORT).show();
+
+                        museum museum = new museum();
+                        museum.setmuseum_name(dfgdfgd);
+                        museum.setregional_name(dfgdfgd);
+                        museum.setmuseum_desc(dfgdfgd);
+                        museum.setLatitude(dsa.getPosition().latitude);
+                        museum.setLongitude(dsa.getPosition().longitude);
+
+                        adapter = new infoadapter(getActivity(), R.layout.isi_info_listview, actorsList);
+                        lv.setAdapter(adapter);
+
+                        actorsList.add(museum);
+
+                    }
+
+                }
+
+            }
 
         }
 
+    }
+
+
+
+
+    public static BigDecimal round(float d, int decimalPlace) {
+        BigDecimal bd = new BigDecimal(Float.toString(d));
+        bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
+        return bd;
     }
 
 

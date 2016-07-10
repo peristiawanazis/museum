@@ -14,6 +14,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.Menu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.iazis.museum.map;
@@ -41,6 +42,7 @@ public class DirectionActivity extends FragmentActivity  implements GoogleMap.On
     private LatLng start;
     private LatLng end;
     private String nama;
+    private String jarak;
 
 
     private GoogleMap map;
@@ -193,7 +195,14 @@ public class DirectionActivity extends FragmentActivity  implements GoogleMap.On
                         .title(nama)
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.mrk))
 
-         ); }
+         );
+    String sd = end.toString();
+        TextView a = (TextView) findViewById(R.id.isijarakdjikstra)   ;
+
+        int lenght = sd.length();
+        String numbers = sd.substring(sd.length() - 3);
+        a.setText(numbers+"km");
+    }
 
 
 }}

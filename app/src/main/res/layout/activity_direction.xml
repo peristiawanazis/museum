@@ -1,12 +1,81 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".DirectionActivity" >
-    <fragment
-        android:id="@+id/mapsdirections"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        class="com.google.android.gms.maps.SupportMapFragment" >
-    </fragment>
-</RelativeLayout>
+        android:layout_height="match_parent">
+
+        <fragment
+            android:id="@+id/mapsdirections"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            class="com.google.android.gms.maps.SupportMapFragment"
+>
+        </fragment>
+
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+
+            >
+
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:id="@+id/jarak"
+                android:background="@color/background_white"
+                android:padding="9dp"
+                android:text="Jarak Google :"
+                android:singleLine="true"
+                android:textStyle="bold"
+                android:textColor="@android:color/holo_blue_dark"
+                android:layout_gravity="bottom"></TextView>
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:background="@color/background_white"
+                android:padding="9dp"
+                android:text="n/a"
+                android:textStyle="bold"
+                android:layout_toRightOf="@id/jarak"
+                android:textColor="@android:color/holo_orange_dark"
+                android:layout_gravity="bottom"></TextView>
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:id="@+id/jarakdjisktra"
+                android:background="@color/background_white"
+                android:padding="9dp"
+                android:text="Jarak Djikstra:"
+                android:singleLine="true"
+                android:textStyle="bold"
+                android:textColor="@android:color/holo_blue_dark"
+                android:layout_gravity="bottom"></TextView>
+
+            <TextView
+
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:id="@+id/isijarakdjikstra"
+                android:background="@color/background_white"
+                android:padding="9dp"
+                android:text="sdf"
+                android:textStyle="bold"
+                android:layout_toRightOf="@id/jarak"
+                android:textColor="@android:color/holo_orange_dark"
+                android:layout_gravity="bottom"></TextView>
+
+
+        </LinearLayout>
+    </FrameLayout>
+</LinearLayout>
+

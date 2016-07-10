@@ -2,6 +2,7 @@ package com.example.iazis.museum;
 
 import android.Manifest;
 import android.app.Fragment;
+import android.view.View.OnClickListener;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
@@ -91,8 +92,16 @@ public class drawing extends Fragment implements GoogleMap.OnMapClickListener {
         // inflat and return the layout
         View v = inflater.inflate(R.layout.fragment_gmaps, container,
                 false);
-        FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab);
-        mMapView = (MapView) v.findViewById(R.id.mapView);
+        FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                googleMap.clear();
+                setUpMap();
+                moveToMyLocation();
+
+            }
+        });
+            mMapView = (MapView) v.findViewById(R.id.mapView);
 
         mMapView.onCreate(savedInstanceState);
 
@@ -100,6 +109,8 @@ public class drawing extends Fragment implements GoogleMap.OnMapClickListener {
 
         return v;
     }
+
+
 
 
 
@@ -228,7 +239,7 @@ public class drawing extends Fragment implements GoogleMap.OnMapClickListener {
     }
     @Override
     public void onMapClick(LatLng point) {
-        List<Marker> markers = new ArrayList<ass>();
+        drawMarker(point);
         if (myCircle != null) {
 
             myCircle.remove();
@@ -241,6 +252,18 @@ public class drawing extends Fragment implements GoogleMap.OnMapClickListener {
                 .strokeWidth(4);
         Toast.makeText(getActivity(), "No Meseum Around", Toast.LENGTH_SHORT).show();
         myCircle = googleMap.addCircle(circleOptions);
+    }
+
+    private void drawMarker(LatLng point){
+        // Creating an instance of MarkerOptions
+        MarkerOptions markerOptions = new MarkerOptions();
+
+        // Setting latitude and longitude for the marker
+        markerOptions.position(point);
+
+        // Adding marker on the Google Map
+        googleMap.addMarker(markerOptions);
+
     }
     /*@Override
     public void onInfoWindowClick(Marker marker)

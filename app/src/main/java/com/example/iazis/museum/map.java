@@ -280,7 +280,7 @@ public class map extends Fragment implements GoogleMap.OnInfoWindowClickListener
             bundle.putDouble(KEY_LNG_TUJUAN, sa);
             bundle.putDouble(KEY_LAT_ASAL, s);
             bundle.putDouble(KEY_LNG_ASAL, ss);
-            bundle.putString(KEY_REGIONAL, sss);
+            bundle.putString(KEY_REGIONAL, asdsad);
 
            // Intent i = new Intent(map.this, InfoMuseum.class);
             Intent i = new Intent(map.this.getActivity(), InfoMuseum.class);

@@ -43,7 +43,7 @@ import android.widget.Toast;
 
 public class information extends android.app.Fragment {
     ListView lv;
-    ArrayList<museum> actorsList;
+    public ArrayList<museum> actorsList;
     infoadapter adapter;
     public static final String	KEY_NAMA	= "museum_nama";
     public static final String	KEY_LAT_TUJUAN	= "lat_tujuan";
