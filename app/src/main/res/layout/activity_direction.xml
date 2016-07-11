@@ -43,7 +43,7 @@
                 android:layout_height="50dp"
                 android:background="@color/background_white"
                 android:padding="9dp"
-                android:text="n/a"
+                android:id="@+id/isijarak"
                 android:textStyle="bold"
                 android:layout_toRightOf="@id/jarak"
                 android:textColor="@android:color/holo_orange_dark"

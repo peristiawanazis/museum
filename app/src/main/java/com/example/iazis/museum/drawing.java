@@ -201,6 +201,7 @@ public class drawing extends Fragment implements GoogleMap.OnMapClickListener {
             ass.setVisible(false);
             moveToMyLocation();
             googleMap.setOnMapClickListener(this);
+            googleMap.getUiSettings().setMapToolbarEnabled(false);
 
 
         }
@@ -240,6 +241,7 @@ public class drawing extends Fragment implements GoogleMap.OnMapClickListener {
     @Override
     public void onMapClick(LatLng point) {
         drawMarker(point);
+
         if (myCircle != null) {
 
             myCircle.remove();
@@ -250,7 +252,7 @@ public class drawing extends Fragment implements GoogleMap.OnMapClickListener {
                 .fillColor(0x40ff0000)
                 .strokeColor(Color.TRANSPARENT)
                 .strokeWidth(4);
-        Toast.makeText(getActivity(), "No Meseum Around", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Museum Detected", Toast.LENGTH_SHORT).show();
         myCircle = googleMap.addCircle(circleOptions);
     }
 
@@ -260,9 +262,15 @@ public class drawing extends Fragment implements GoogleMap.OnMapClickListener {
 
         // Setting latitude and longitude for the marker
         markerOptions.position(point);
+        markerOptions.snippet(new String("museum_desc"));
+        markerOptions .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+
+
 
         // Adding marker on the Google Map
         googleMap.addMarker(markerOptions);
+
+
 
     }
     /*@Override

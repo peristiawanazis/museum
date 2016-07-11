@@ -96,7 +96,14 @@ public class map extends Fragment implements GoogleMap.OnInfoWindowClickListener
         // inflat and return the layout
         View v = inflater.inflate(R.layout.fragment_gmaps, container,
                 false);
-        FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                moveToMyLocation();
+
+            }
+        });
         mMapView = (MapView) v.findViewById(R.id.mapView);
 
         mMapView.onCreate(savedInstanceState);
@@ -235,7 +242,7 @@ public class map extends Fragment implements GoogleMap.OnInfoWindowClickListener
 
                 .snippet(new String("myloc")));
                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(s, ss), 13));
-
+                googleMap.getUiSettings().setMapToolbarEnabled(false);
 
         }
 
@@ -264,13 +271,14 @@ public class map extends Fragment implements GoogleMap.OnInfoWindowClickListener
         }
         Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
         if(location!=null){
-
+            museum museum = new museum();
             Double s = location.getLatitude();
             Double ss = location.getLongitude();
             Double as =  marker.getPosition().latitude;
             Double sa =  marker.getPosition().longitude;
             String sss = marker.getTitle();
             String asdsad = marker.getSnippet();
+            String dsas = museum.getregional_name();
             Bundle bundle = new Bundle();
 
              bundle.putString(KEY_DESC, asdsad);
@@ -280,7 +288,7 @@ public class map extends Fragment implements GoogleMap.OnInfoWindowClickListener
             bundle.putDouble(KEY_LNG_TUJUAN, sa);
             bundle.putDouble(KEY_LAT_ASAL, s);
             bundle.putDouble(KEY_LNG_ASAL, ss);
-            bundle.putString(KEY_REGIONAL, asdsad);
+            bundle.putString(KEY_REGIONAL, dsas);
 
            // Intent i = new Intent(map.this, InfoMuseum.class);
             Intent i = new Intent(map.this.getActivity(), InfoMuseum.class);

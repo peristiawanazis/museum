@@ -15,6 +15,7 @@ import android.net.ParseException;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
@@ -99,7 +100,14 @@ public class nearme extends Fragment   {
         mMapView.onCreate(savedInstanceState);
 
         lv=(ListView) v.findViewById(R.id.listnear);
+        FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
 
+                moveToMyLocation();
+
+            }
+        });
         actorsList = new ArrayList<museum>();
        // new JSONAsynTask().execute("http://arifmuseum.esy.es/peta.php");
 
@@ -303,7 +311,7 @@ public class nearme extends Fragment   {
                             .icon(BitmapDescriptorFactory.fromResource(R.drawable.mrk))
 
             );
-
+            googleMap.getUiSettings().setMapToolbarEnabled(false);
             moveToMyLocation();
             LocationManager locationManager = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
             Criteria criteria = new Criteria();
@@ -327,9 +335,9 @@ public class nearme extends Fragment   {
             asdas.setLatitude(s);
             asdas.setLongitude(ss);
             Location target = new Location("target");
-            for(LatLng point : new LatLng[]{dsa.getPosition()}) {
-                target.setLatitude(point.latitude);
-                target.setLongitude(point.longitude);
+
+                target.setLatitude(dsa.getPosition().latitude);
+                target.setLongitude(dsa.getPosition().longitude);
                 BigDecimal _bdDistance;
                 float distance = asdas.distanceTo(target);
                 _bdDistance = round(distance,2);
@@ -339,6 +347,8 @@ public class nearme extends Fragment   {
                     for(String dfgdfgd : new String[]{dsa.getTitle()}) {
                         //Toast.makeText(getActivity(), ""+dfgdfgd, Toast.LENGTH_SHORT).show();
 
+
+                        actorsList.isEmpty();
                         museum museum = new museum();
                         museum.setmuseum_name(dfgdfgd);
                         museum.setregional_name(dfgdfgd);
@@ -355,7 +365,7 @@ public class nearme extends Fragment   {
 
                 }
 
-            }
+
 
         }
 
