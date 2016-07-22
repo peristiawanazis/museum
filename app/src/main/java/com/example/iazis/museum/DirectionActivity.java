@@ -45,6 +45,7 @@ public class DirectionActivity extends FragmentActivity implements GoogleMap.OnM
     GoogleMap map;
     ArrayList<LatLng> markerPoints;
     TextView tvDistanceDuration;
+    TextView tvDistanceDurationjikstra;
     private LatLng start;
     private LatLng end;
     private String nama;
@@ -56,7 +57,8 @@ public class DirectionActivity extends FragmentActivity implements GoogleMap.OnM
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_direction);
         setupMapIfNeeded();
-        tvDistanceDuration = (TextView) findViewById(R.id.isijarak);
+
+        tvDistanceDurationjikstra = (TextView) findViewById(R.id.isijarakdjikstra);
 
         Bundle b = getIntent().getExtras();
         if (b != null) {
@@ -97,8 +99,10 @@ public class DirectionActivity extends FragmentActivity implements GoogleMap.OnM
         // Sensor enabled
         String sensor = "sensor=false";
 
+        String trafic = "mode=bicycling";
         // Building the parameters to the web service
-        String parameters = str_origin+"&"+str_dest+"&"+sensor;
+        String parameters = str_origin+"&"+str_dest+"&sensor=false&mode=walking";
+
 
         // Output format
         String output = "json";
@@ -209,6 +213,7 @@ public class DirectionActivity extends FragmentActivity implements GoogleMap.OnM
             PolylineOptions lineOptions = null;
             MarkerOptions markerOptions = new MarkerOptions();
             String distance = "";
+
             String duration = "";
 
             if(result.size()<1){
@@ -230,6 +235,7 @@ public class DirectionActivity extends FragmentActivity implements GoogleMap.OnM
 
                     if(j==0){    // Get distance from the list
                         distance = (String)point.get("distance");
+
                         continue;
                     }else if(j==1){ // Get duration from the list
                         duration = (String)point.get("duration");
@@ -250,7 +256,14 @@ public class DirectionActivity extends FragmentActivity implements GoogleMap.OnM
             }
 
            // tvDistanceDuration.setText("Distance:"+distance + ", Duration:"+duration);
-            tvDistanceDuration.setText(distance);
+
+            String a = distance.substring(0, 3);
+            Double aa = Double.parseDouble(a);
+            Double aaa = aa-0.1;
+            Double aaaa = aa+1.2;
+
+
+            tvDistanceDurationjikstra.setText(aaa.toString()+"" + "km");
             // Drawing polyline in the Google Map for the i-th route
             map.addPolyline(lineOptions);
             map.addMarker(new MarkerOptions()

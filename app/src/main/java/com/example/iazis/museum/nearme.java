@@ -108,9 +108,11 @@ public class nearme extends Fragment   {
 
             }
         });
+        //deklarasi array
         actorsList = new ArrayList<museum>();
        // new JSONAsynTask().execute("http://arifmuseum.esy.es/peta.php");
 
+        //deklrasi agar listvu\iew bisa diklik
         lv.setClickable(true);
 
         LocationManager locationManager = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
@@ -168,71 +170,24 @@ public class nearme extends Fragment   {
 
         @Override
         protected void onPreExecute() {
-         /*   super.onPreExecute();
-            dialog = new ProgressDialog(getActivity());
-            dialog.setMessage("Loading, please wait");
-            dialog.setTitle("Connecting server");
-            dialog.show();
-            dialog.setCancelable(false); */
+
         }
 
         @Override
         protected Boolean doInBackground(String... urls) {
-          /*  try {
-                HttpGet httppost = new HttpGet(urls[0]);
-                HttpClient httpclient = new DefaultHttpClient();
-                HttpResponse response = httpclient.execute(httppost);
-
-                int status = response.getStatusLine().getStatusCode();
-                if (status == 200) {
-                    HttpEntity entity = response.getEntity();
-                    //  String data = EntityUtils.toString(entity);
-                    InputStream inputStream = entity.getContent();
-                    String a;
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"iso-8859-1"),8);
-                    a = bufferedReader.readLine(); inputStream.close();
-                    // JSONObject jsono = new JSONObject(data);
-                    JSONArray jarray = new JSONArray(a);
-                    for (int i = 0; i < jarray.length(); i++) {
-                        JSONObject object = jarray.getJSONObject(i);
-                        museum museum = new museum();
-                        museum.setmuseum_name(object.getString("museum_name"));
-                        museum.setregional_name(object.getString("regional_name"));
-                        museum.setmuseum_desc(object.getString("museum_desc"));
-                        museum.setLatitude(object.getDouble("museum_lat"));
-                        museum.setLongitude(object.getDouble("museum_long"));
-                       actorsList.add(museum);
-
-
-                    }
-                    return true;
-                }
-
-            } catch (ParseException e1) {
-                e1.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }*/
             return false;
 
         }
 
         protected void onPostExecute(Boolean result) {
 
-           /* dialog.dismiss();
-            adapter.notifyDataSetChanged();
-            if(result == false)
-                Toast.makeText(getActivity(), "Unable to fetch data from server", Toast.LENGTH_LONG).show();
-*/
         }
     }
-
+//agar pada saat hp dibuka dalam keadaan mati, tetap jalan
     public void onResume() {
         super.onResume();
         // mMapView.onResume();
-        //setUpMapIfNeeded();
+        //jalankan method ini
         setUpMap();
     }
 
@@ -244,6 +199,7 @@ public class nearme extends Fragment   {
             }
         }
     }
+    //method yg menjalankan fungsi retrieveAndAddCities
     private void setUpMap() {
         new Thread(new Runnable() {
             public void run() {
@@ -257,6 +213,8 @@ public class nearme extends Fragment   {
         }).start();
     }
 
+    //method yg jalankan 2 fungsi utama
+    // 1. jalankan json (decrypt) 2. jalankan method createMarkersFromJson
     protected void retrieveAndAddCities() throws IOException {
         HttpURLConnection conn = null;
         final StringBuilder json = new StringBuilder();
@@ -328,21 +286,21 @@ public class nearme extends Fragment   {
             }
 
             Location X = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
-
+//latitude dan longitude posisi kita sekarang
             Double s = X.getLatitude();
             Double ss = X.getLongitude();
             Location asdas = new Location("SD");
             asdas.setLatitude(s);
             asdas.setLongitude(ss);
             Location target = new Location("target");
-
+//lokasi latitude longitude tujuan
                 target.setLatitude(dsa.getPosition().latitude);
                 target.setLongitude(dsa.getPosition().longitude);
                 BigDecimal _bdDistance;
                 float distance = asdas.distanceTo(target);
                 _bdDistance = round(distance,2);
                 String _strDistance = _bdDistance.toString();
-
+//apabila marker ada di radius < 25000 maka, marker diambil & ditulis ke list view yg di atas
                 if(asdas.distanceTo(target) < 2500) {
                     for(String dfgdfgd : new String[]{dsa.getTitle()}) {
                         //Toast.makeText(getActivity(), ""+dfgdfgd, Toast.LENGTH_SHORT).show();
@@ -355,7 +313,7 @@ public class nearme extends Fragment   {
                         museum.setmuseum_desc(dfgdfgd);
                         museum.setLatitude(dsa.getPosition().latitude);
                         museum.setLongitude(dsa.getPosition().longitude);
-
+                        //adapter adalah penampamng listview
                         adapter = new infoadapter(getActivity(), R.layout.isi_info_listview, actorsList);
                         lv.setAdapter(adapter);
 
@@ -373,7 +331,7 @@ public class nearme extends Fragment   {
 
 
 
-
+//buat si radius agar lebih sesuai
     public static BigDecimal round(float d, int decimalPlace) {
         BigDecimal bd = new BigDecimal(Float.toString(d));
         bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);

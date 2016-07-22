@@ -238,12 +238,12 @@ public class directionold extends FragmentActivity  implements GoogleMap.OnMyLoc
          String sd = end.toString();
 
         TextView a = (TextView) findViewById(R.id.isijarakdjikstra)   ;
-        TextView b = (TextView) findViewById(R.id.isijarak)   ;
+        //TextView b = (TextView) findViewById(R.id.isijarak)   ;
         String numbers = sd.substring(15, 16);
         Integer xc = Integer.parseInt(numbers);
         Integer cc = xc+1;
         a.setText(numbers+"km");
-        b.setText(cc+"km");
+      //  b.setText(cc+"km");
     }
 
 
